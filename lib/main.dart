@@ -6,15 +6,13 @@ extension Log on Object {
   void log() => devtools.log(toString());
 }
 
-abstract class CanRun {
-  String get type {
-    if (this is Cat) {
-      return 'Cat';
-    } else {
-      return "Something else";
-    }
-  }
+enum Type { cat, dog }
 
+abstract class CanRun {
+  final Type type;
+  const CanRun({
+    required this.type,
+  });
   @mustCallSuper
   void run() {
     "CanRuns's run function is called".log();
@@ -22,6 +20,7 @@ abstract class CanRun {
 }
 
 class Cat extends CanRun {
+  const Cat() : super(type: Type.cat);
   @override
   void run() {
     super.run();
@@ -29,12 +28,14 @@ class Cat extends CanRun {
   }
 }
 
-class Dog extends CanRun {}
+class Dog extends CanRun {
+  const Dog() : super(type: Type.dog);
+}
 
 void testIt() {
-  final cat = Cat();
+  const cat = Cat();
   cat.type.log();
-  final dog = Dog();
+  const dog = Dog();
   dog.type.log();
 }
 

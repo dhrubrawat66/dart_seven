@@ -7,15 +7,24 @@ extension Log on Object {
 }
 
 abstract class CanRun {
-  void run();
+  @mustCallSuper
+  void run() {
+    "CanRuns's run function is called".log();
+  }
 }
 
 class Cat extends CanRun {
   @override
-  void run() {}
+  void run() {
+    super.run();
+    'Cat running'.log();
+  }
 }
 
-void testIt() async {}
+void testIt() {
+  final cat = Cat();
+  cat.run();
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
